@@ -16,7 +16,9 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: package-lock.json
-      - run: npm ci
+      # npm install (not ci): Rive's WASM @emnapi deps resolve to different
+      # patch versions per-platform, which breaks `npm ci`'s strict lock check.
+      - run: npm install
       - run: npm run lint
       - run: npm run build
         env:
@@ -51,7 +53,7 @@ jobs:
             # APP_DIR = path to the cloned repo on the server (the app root).
             cd "${{ secrets.APP_DIR }}"
             git pull --ff-only
-            npm ci
+            npm install
             npm run build
             # Start or reload on the dedicated port from ecosystem.config.js (3005).
             pm2 startOrReload ecosystem.config.js --update-env
