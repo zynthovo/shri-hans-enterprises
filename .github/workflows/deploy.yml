@@ -26,6 +26,19 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Validate required secrets
+        run: |
+          missing=0
+          for s in SSH_HOST SSH_USER SSH_KEY APP_DIR; do
+            if [ -z "${!s}" ]; then echo "❌ Missing secret: $s"; missing=1; else echo "✅ $s is set"; fi
+          done
+          [ "$missing" = "0" ] || { echo "Add the missing secrets in Settings → Secrets and variables → Actions."; exit 1; }
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          APP_DIR: ${{ secrets.APP_DIR }}
+
       - name: Deploy over SSH (pull, build & restart on the server)
         uses: appleboy/ssh-action@v1.2.0
         with:
