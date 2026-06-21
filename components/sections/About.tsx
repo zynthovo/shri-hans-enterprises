@@ -1,14 +1,5 @@
-"use client";
-
-import { Suspense, lazy } from "react";
 import { Reveal } from "@/components/Reveal";
-import { useInView } from "@/components/useInView";
-import { useIsMobile } from "@/components/useIsMobile";
-
-const Spline = lazy(() => import("@splinetool/react-spline"));
-
-const ROBOT_SCENE =
-  "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
+import { RiveRobot } from "@/components/RiveRobot";
 
 const points = [
   {
@@ -26,50 +17,18 @@ const points = [
 ];
 
 export function About() {
-  const isMobile = useIsMobile();
-  const { ref: robotRef, inView: robotInView } = useInView<HTMLDivElement>({
-    once: true,
-  });
-
   return (
     <section id="about" className="bg-background py-20">
       <div className="site-container">
         <div className="grid items-center gap-10 lg:grid-cols-2">
-          {/* Robot */}
-          <Reveal animation="fade-left" className="order-first lg:order-last">
-            <div
-              ref={robotRef}
-              className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-full bg-ink"
-            >
-              {robotInView && !isMobile ? (
-                <Suspense
-                  fallback={
-                    <div className="flex h-full w-full items-center justify-center text-muted">
-                      Loading 3D robot…
-                    </div>
-                  }
-                >
-                  <Spline
-                    scene={ROBOT_SCENE}
-                    style={{
-                      width: "130%",
-                      height: "130%",
-                      transform: "translate(-12%, -8%)",
-                    }}
-                  />
-                </Suspense>
-              ) : (
-                // Lightweight static fallback (used on phones — the Spline 3D
-                // scene is far too heavy for mobile).
-                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand/25 via-ink to-accent/20 text-white/80">
-                  <i className="bi bi-robot text-7xl drop-shadow-[0_0_30px_rgba(0,93,237,0.6)]" />
-                </div>
-              )}
-            </div>
+          {/* Interactive Rive robot — mouse on desktop, gyroscope on phones.
+              Lazy-loads only when scrolled into view. */}
+          <Reveal animation="zoom-in" className="order-first lg:order-last">
+            <RiveRobot className="relative mx-auto aspect-square w-full max-w-[520px]" />
           </Reveal>
 
           {/* Content */}
-          <Reveal animation="fade-right" className="order-last lg:order-first">
+          <Reveal animation="fade-up" className="order-last lg:order-first">
             <h3 className="mb-5 text-4xl font-bold text-heading">
               Your Complete Digital Transformation Partner
             </h3>
