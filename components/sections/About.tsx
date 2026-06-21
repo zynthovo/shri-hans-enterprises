@@ -4,7 +4,6 @@ import { Suspense, lazy } from "react";
 import { Reveal } from "@/components/Reveal";
 import { useInView } from "@/components/useInView";
 import { useIsMobile } from "@/components/useIsMobile";
-import { RiveRobot } from "@/components/RiveRobot";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -39,8 +38,10 @@ export function About() {
           {/* Robot */}
           <Reveal animation="zoom-in" className="order-first lg:order-last">
             {isMobile ? (
-              // Mobile: lightweight interactive Rive (mouse + gyroscope).
-              <RiveRobot className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[32px] bg-ink" />
+              // Mobile: lightweight static graphic (no heavy animation on phones).
+              <div className="relative mx-auto flex aspect-square w-full max-w-[520px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-brand/25 via-ink to-accent/20 text-white/80">
+                <i className="bi bi-robot text-7xl drop-shadow-[0_0_30px_rgba(0,93,237,0.6)]" />
+              </div>
             ) : (
               // Web: the original Spline 3D robot animation.
               <div

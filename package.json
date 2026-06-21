@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@rive-app/react-canvas": "^4.29.1",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.97",
     "gsap": "^3.15.0",

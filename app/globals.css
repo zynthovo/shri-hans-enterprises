@@ -95,14 +95,16 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden; /* prevent horizontal scroll from fixed/oversized elements */
+    /* clip (not hidden): prevents horizontal scroll WITHOUT turning html into a
+       scroll container, so position:sticky (glass cards / "Our Services") still works */
+    overflow-x: clip;
   }
 
   body {
     font-family: var(--font-sans);
     background: var(--background);
     color: var(--foreground);
-    overflow-x: hidden;
+    overflow-x: clip; /* clip (not hidden) to keep position:sticky working */
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
