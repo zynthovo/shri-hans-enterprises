@@ -48,7 +48,7 @@ nano .env.local
 
 npm ci
 npm run build
-pm2 start npm --name zynthovo -- start   # runs on 127.0.0.1:3000
+pm2 start ecosystem.config.js   # runs on 127.0.0.1:3005
 pm2 save
 pm2 startup                              # run the command it prints (survives reboot)
 ```
@@ -61,7 +61,7 @@ nano /etc/nginx/sites-available/zynthovo
 server {
   server_name zynthovo.com www.zynthovo.com;
   location / {
-    proxy_pass http://127.0.0.1:3000;
+    proxy_pass http://127.0.0.1:3005;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';

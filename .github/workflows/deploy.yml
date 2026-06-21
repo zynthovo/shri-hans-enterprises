@@ -40,6 +40,6 @@ jobs:
             git pull --ff-only
             npm ci
             npm run build
-            # Reload if already running, otherwise start it (port 3000 behind nginx).
-            pm2 reload zynthovo --update-env || pm2 start npm --name zynthovo -- start
+            # Start or reload on the dedicated port from ecosystem.config.js (3005).
+            pm2 startOrReload ecosystem.config.js --update-env
             pm2 save
