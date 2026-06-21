@@ -41,7 +41,7 @@ function Toggle({
             aria-selected={active}
             onClick={() => setView(opt.id)}
             className={cn(
-              "flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-all",
+              "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-semibold transition-all sm:gap-2 sm:px-5",
               active
                 ? "bg-brand text-white shadow-lg"
                 : "text-muted hover:text-heading"
