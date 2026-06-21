@@ -2,14 +2,14 @@ import Link from "next/link";
 import { ServicesView } from "@/components/ServicesView";
 import { type CardStackItem } from "@/components/CardStack";
 
-const IMG = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?w=900&h=560&fit=crop&crop=center&q=70&auto=format`;
+// Local branded images live in public/assets/services/<id>.jpg
+const IMG = (name: string) => `/assets/services/${name}.jpg`;
 
 const services: CardStackItem[] = [
   {
     id: "websites",
     icon: "fa-globe",
-    imageSrc: IMG("1547658719-da2b51169166"),
+    imageSrc: IMG("websites"),
     title: "Custom Websites",
     description:
       "Responsive, SEO-optimized websites with modern design, e-commerce and CMS.",
@@ -17,7 +17,7 @@ const services: CardStackItem[] = [
   {
     id: "software",
     icon: "fa-code",
-    imageSrc: IMG("1498050108023-c5249f4df085"),
+    imageSrc: IMG("software"),
     title: "Software, CRM & ERP",
     description:
       "Custom software, CRM and ERP systems to automate and run your operations.",
@@ -25,7 +25,7 @@ const services: CardStackItem[] = [
   {
     id: "mobile",
     icon: "fa-mobile-screen-button",
-    imageSrc: IMG("1512941937669-90a1b58e7e9c"),
+    imageSrc: IMG("mobile"),
     title: "Mobile App Development",
     description:
       "Native Android and iOS apps with stunning UI/UX and seamless performance.",
@@ -33,7 +33,7 @@ const services: CardStackItem[] = [
   {
     id: "ai",
     icon: "fa-robot",
-    imageSrc: IMG("1485827404703-89b55fcc595e"),
+    imageSrc: IMG("ai"),
     title: "AI Automation",
     description:
       "Intelligent automation to streamline workflows, reduce costs, and scale.",
@@ -41,7 +41,7 @@ const services: CardStackItem[] = [
   {
     id: "marketing",
     icon: "fa-bullhorn",
-    imageSrc: IMG("1460925895917-afdab827c52f"),
+    imageSrc: IMG("marketing"),
     title: "Digital Marketing",
     description:
       "SEO, social media, content strategy, and paid advertising — all in one.",
@@ -49,7 +49,7 @@ const services: CardStackItem[] = [
   {
     id: "iot",
     icon: "fa-microchip",
-    imageSrc: IMG("1518770660439-4636190af475"),
+    imageSrc: IMG("iot"),
     title: "IoT Solutions",
     description:
       "Connected devices, real-time monitoring, and intelligent control systems.",
@@ -58,6 +58,7 @@ const services: CardStackItem[] = [
     id: "creators-flow",
     icon: "fa-bullseye",
     tag: "Our Platform",
+    imageSrc: IMG("creators-flow"),
     title: "Creators Flow",
     description:
       "Run influencer campaigns at scale. Influencer marketing, amplified.",
@@ -66,6 +67,7 @@ const services: CardStackItem[] = [
   {
     id: "graphic",
     icon: "fa-palette",
+    imageSrc: IMG("graphic"),
     title: "Graphic Design",
     description:
       "Logos, branding, and marketing collateral that make your brand stand out.",
@@ -73,6 +75,7 @@ const services: CardStackItem[] = [
   {
     id: "video",
     icon: "fa-clapperboard",
+    imageSrc: IMG("video"),
     title: "Video Editing",
     description:
       "Professional editing for ads, reels, YouTube, and product demos.",
@@ -80,6 +83,7 @@ const services: CardStackItem[] = [
   {
     id: "company",
     icon: "fa-building-columns",
+    imageSrc: IMG("company"),
     title: "Company Formation",
     description:
       "End-to-end incorporation, documentation, and legal compliance.",
@@ -87,6 +91,7 @@ const services: CardStackItem[] = [
   {
     id: "gst",
     icon: "fa-file-invoice",
+    imageSrc: IMG("gst"),
     title: "GST Registration & Returns",
     description:
       "GST registration and timely return filing to keep you fully compliant.",
@@ -94,6 +99,7 @@ const services: CardStackItem[] = [
   {
     id: "tax",
     icon: "fa-file-invoice-dollar",
+    imageSrc: IMG("tax"),
     title: "Income Tax & Accounting",
     description:
       "Income tax filing, bookkeeping, TDS, ROC compliance and CA services.",

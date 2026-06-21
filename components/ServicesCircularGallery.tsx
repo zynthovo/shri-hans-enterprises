@@ -5,8 +5,8 @@ import { useState, useEffect, useRef, type CSSProperties } from "react";
 const cn = (...classes: (string | false | undefined)[]) =>
   classes.filter(Boolean).join(" ");
 
-const IMG = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?w=400&h=600&fit=crop&crop=center&q=70&auto=format`;
+// Local branded images: public/assets/services/<id>.jpg
+const IMG = (name: string) => `/assets/services/${name}.jpg`;
 
 interface Service {
   icon: string;
@@ -16,84 +16,18 @@ interface Service {
 }
 
 const services: Service[] = [
-  {
-    icon: "fa-globe",
-    image: IMG("1547658719-da2b51169166"),
-    title: "Custom Websites",
-    description:
-      "Responsive, SEO-optimized websites with modern design and CMS solutions.",
-  },
-  {
-    icon: "fa-code",
-    image: IMG("1498050108023-c5249f4df085"),
-    title: "Software, CRM & ERP",
-    description:
-      "Custom software, CRM and ERP systems to run your operations end to end.",
-  },
-  {
-    icon: "fa-mobile-screen-button",
-    image: IMG("1512941937669-90a1b58e7e9c"),
-    title: "Mobile Apps",
-    description:
-      "Native Android and iOS apps with stunning UI/UX and seamless performance.",
-  },
-  {
-    icon: "fa-robot",
-    image: IMG("1485827404703-89b55fcc595e"),
-    title: "AI Automation",
-    description:
-      "Intelligent automation to streamline workflows, cut costs, and scale.",
-  },
-  {
-    icon: "fa-bullhorn",
-    image: IMG("1460925895917-afdab827c52f"),
-    title: "Digital Marketing",
-    description:
-      "SEO, social media, content strategy, and paid advertising — all in one.",
-  },
-  {
-    icon: "fa-microchip",
-    image: IMG("1518770660439-4636190af475"),
-    title: "IoT Solutions",
-    description:
-      "Connected devices, real-time monitoring, and intelligent control systems.",
-  },
-  {
-    icon: "fa-bullseye",
-    title: "Creators Flow",
-    description:
-      "Run influencer campaigns at scale with our own platform. Marketing, amplified.",
-  },
-  {
-    icon: "fa-palette",
-    title: "Graphic Design",
-    description:
-      "Logos, branding, and marketing collateral that make your brand stand out.",
-  },
-  {
-    icon: "fa-clapperboard",
-    title: "Video Editing",
-    description:
-      "Professional editing for ads, reels, YouTube, and product demos.",
-  },
-  {
-    icon: "fa-building-columns",
-    title: "Company Formation",
-    description:
-      "End-to-end incorporation, documentation, and legal compliance.",
-  },
-  {
-    icon: "fa-file-invoice",
-    title: "GST & Returns",
-    description:
-      "GST registration and timely return filing to keep you fully compliant.",
-  },
-  {
-    icon: "fa-file-invoice-dollar",
-    title: "Tax & Accounting",
-    description:
-      "Income tax filing, bookkeeping, TDS, ROC compliance and CA services.",
-  },
+  { icon: "fa-globe", image: IMG("websites"), title: "Custom Websites", description: "Responsive, SEO-optimized websites with modern design and CMS solutions." },
+  { icon: "fa-code", image: IMG("software"), title: "Software, CRM & ERP", description: "Custom software, CRM and ERP systems to run your operations end to end." },
+  { icon: "fa-mobile-screen-button", image: IMG("mobile"), title: "Mobile Apps", description: "Native Android and iOS apps with stunning UI/UX and seamless performance." },
+  { icon: "fa-robot", image: IMG("ai"), title: "AI Automation", description: "Intelligent automation to streamline workflows, cut costs, and scale." },
+  { icon: "fa-bullhorn", image: IMG("marketing"), title: "Digital Marketing", description: "SEO, social media, content strategy, and paid advertising — all in one." },
+  { icon: "fa-microchip", image: IMG("iot"), title: "IoT Solutions", description: "Connected devices, real-time monitoring, and intelligent control systems." },
+  { icon: "fa-bullseye", image: IMG("creators-flow"), title: "Creators Flow", description: "Run influencer campaigns at scale with our own platform. Marketing, amplified." },
+  { icon: "fa-palette", image: IMG("graphic"), title: "Graphic Design", description: "Logos, branding, and marketing collateral that make your brand stand out." },
+  { icon: "fa-clapperboard", image: IMG("video"), title: "Video Editing", description: "Professional editing for ads, reels, YouTube, and product demos." },
+  { icon: "fa-building-columns", image: IMG("company"), title: "Company Formation", description: "End-to-end incorporation, documentation, and legal compliance." },
+  { icon: "fa-file-invoice", image: IMG("gst"), title: "GST & Returns", description: "GST registration and timely return filing to keep you fully compliant." },
+  { icon: "fa-file-invoice-dollar", image: IMG("tax"), title: "Tax & Accounting", description: "Income tax filing, bookkeeping, TDS, ROC compliance and CA services." },
 ];
 
 function FlipCard({
@@ -115,20 +49,23 @@ function FlipCard({
       <div className="relative h-full w-full rounded-xl shadow-lg transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
         {/* Front */}
         <div className="absolute inset-0 overflow-hidden rounded-xl border border-white/10 [backface-visibility:hidden]">
-          {image ? (
+          {/* icon tile always behind — shows if the image is missing/fails */}
+          <div className="absolute inset-0 flex items-center justify-center bg-card">
+            <i className={`fa-solid ${icon} text-3xl text-brand`} />
+          </div>
+          {image && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={image}
               alt={title}
               loading="lazy"
-              className="h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-card">
-              <i className={`fa-solid ${icon} text-3xl text-brand`} />
-            </div>
           )}
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-2 pt-6">
+          <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/85 to-transparent p-2 pt-6">
             <p className="text-center text-[10px] font-semibold leading-tight text-white md:text-xs">
               {title}
             </p>

@@ -301,24 +301,25 @@ function DefaultFanCard({ item }: { item: CardStackItem }) {
   return (
     <div className="relative h-full w-full">
       <div className="absolute inset-0">
+        {/* icon tile always behind — shows if the image is missing/fails */}
+        <div className="flex h-full w-full items-center justify-center bg-card">
+          {item.icon ? (
+            <i className={`fa-solid ${item.icon} text-5xl text-brand`} />
+          ) : null}
+        </div>
         {item.imageSrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={item.imageSrc}
             alt={item.title}
-            className="h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
             draggable={false}
             loading="lazy"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
           />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-card">
-            {item.icon ? (
-              <i className={`fa-solid ${item.icon} text-5xl text-brand`} />
-            ) : (
-              <span className="text-sm text-white/40">No image</span>
-            )}
-          </div>
-        )}
+        ) : null}
       </div>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
