@@ -24,7 +24,7 @@ export function About() {
           {/* Interactive Rive robot — mouse on desktop, gyroscope on phones.
               Lazy-loads only when scrolled into view. */}
           <Reveal animation="zoom-in" className="order-first lg:order-last">
-            <RiveRobot className="relative mx-auto aspect-square w-full max-w-[520px]" />
+            <RiveRobot className="relative mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[32px] bg-[#4040e2]" />
           </Reveal>
 
           {/* Content */}
