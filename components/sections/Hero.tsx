@@ -70,7 +70,10 @@ export function Hero() {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReduced) return;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    // Skip the heavy WebGL tubes on phones / reduced-motion (the dark bg-ink
+    // background + white text already look clean without it).
+    if (prefersReduced || isMobile) return;
 
     let cancelled = false;
 

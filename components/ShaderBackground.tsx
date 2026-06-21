@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/components/useIsMobile";
 
 // "Cosmic clouds" fragment shader by Matthias Hurrle (@atzedent).
 const FRAGMENT_SRC = `#version 300 es
@@ -69,8 +70,13 @@ void main(){gl_Position=position;}`;
 
 export function ShaderBackground({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    // Skip the fragment-heavy WebGL shader on phones / reduced-motion.
+    if (window.matchMedia("(max-width: 768px)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const gl = canvas.getContext("webgl2");
@@ -156,6 +162,20 @@ export function ShaderBackground({ className = "" }: { className?: string }) {
       gl.deleteBuffer(buffer);
     };
   }, []);
+
+  // Static "cosmic" gradient fallback on phones (no WebGL loop).
+  if (isMobile) {
+    return (
+      <div
+        aria-hidden="true"
+        className={className}
+        style={{
+          background:
+            "radial-gradient(circle at 30% 20%, rgba(94,114,228,0.45), transparent 55%), radial-gradient(circle at 75% 80%, rgba(123,47,247,0.4), transparent 55%), #05060f",
+        }}
+      />
+    );
+  }
 
   return <canvas ref={canvasRef} aria-hidden="true" className={className} />;
 }

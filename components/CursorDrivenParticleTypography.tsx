@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useIsMobile } from "@/components/useIsMobile";
 
 function cn(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -109,8 +110,12 @@ export function CursorDrivenParticleTypography({
 }: CursorDrivenParticleTypographyProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    // Phones: skip the canvas particle simulation (rendered as plain text).
+    if (window.matchMedia("(max-width: 768px)").matches) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -243,6 +248,25 @@ export function CursorDrivenParticleTypography({
     returnSpeed,
     color,
   ]);
+
+  // Phones: render the word as plain text instead of the particle canvas.
+  if (isMobile) {
+    return (
+      <div
+        className={cn(
+          "flex w-full items-center justify-center",
+          className
+        )}
+      >
+        <span
+          className="text-5xl font-extrabold tracking-tight sm:text-6xl"
+          style={{ color: color || undefined }}
+        >
+          {text}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div

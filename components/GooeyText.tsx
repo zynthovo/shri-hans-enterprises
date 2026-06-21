@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/components/useIsMobile";
 
 interface GooeyTextProps {
   texts: string[];
@@ -22,8 +23,36 @@ export function GooeyText({
 }: GooeyTextProps) {
   const text1Ref = React.useRef<HTMLSpanElement>(null);
   const text2Ref = React.useRef<HTMLSpanElement>(null);
+  const isMobile = useIsMobile();
+
+  // Mobile: cheap word swap (no per-frame blur / threshold filter).
+  React.useEffect(() => {
+    if (!isMobile) return;
+    const t1 = text1Ref.current;
+    const t2 = text2Ref.current;
+    if (t1) {
+      t1.style.filter = "none";
+      t1.style.opacity = "100%";
+      t1.style.transition = "opacity 0.4s";
+    }
+    if (t2) t2.style.opacity = "0%";
+    let i = 0;
+    const id = window.setInterval(() => {
+      i = (i + 1) % texts.length;
+      if (!t1) return;
+      t1.style.opacity = "0%";
+      window.setTimeout(() => {
+        if (t1) {
+          t1.textContent = texts[i];
+          t1.style.opacity = "100%";
+        }
+      }, 400);
+    }, 2400);
+    return () => window.clearInterval(id);
+  }, [isMobile, texts]);
 
   React.useEffect(() => {
+    if (isMobile) return; // mobile uses the lightweight swap above
     let textIndex = texts.length - 1;
     let time = new Date();
     let morph = 0;
@@ -93,7 +122,7 @@ export function GooeyText({
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [texts, morphTime, cooldownTime]);
+  }, [texts, morphTime, cooldownTime, isMobile]);
 
   return (
     <div className={cn("relative", className)}>
@@ -117,7 +146,7 @@ export function GooeyText({
           "flex h-full items-center",
           align === "left" ? "justify-start" : "justify-center"
         )}
-        style={{ filter: "url(#threshold)" }}
+        style={{ filter: isMobile ? "none" : "url(#threshold)" }}
       >
         <span
           ref={text1Ref}

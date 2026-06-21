@@ -3,6 +3,7 @@
 import { Suspense, lazy } from "react";
 import { Reveal } from "@/components/Reveal";
 import { useInView } from "@/components/useInView";
+import { useIsMobile } from "@/components/useIsMobile";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -25,6 +26,7 @@ const points = [
 ];
 
 export function About() {
+  const isMobile = useIsMobile();
   const { ref: robotRef, inView: robotInView } = useInView<HTMLDivElement>({
     once: true,
   });
@@ -39,7 +41,7 @@ export function About() {
               ref={robotRef}
               className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-full bg-ink"
             >
-              {robotInView ? (
+              {robotInView && !isMobile ? (
                 <Suspense
                   fallback={
                     <div className="flex h-full w-full items-center justify-center text-muted">
@@ -57,8 +59,10 @@ export function About() {
                   />
                 </Suspense>
               ) : (
-                <div className="flex h-full w-full items-center justify-center text-muted">
-                  <i className="bi bi-robot text-6xl" />
+                // Lightweight static fallback (used on phones — the Spline 3D
+                // scene is far too heavy for mobile).
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand/25 via-ink to-accent/20 text-white/80">
+                  <i className="bi bi-robot text-7xl drop-shadow-[0_0_30px_rgba(0,93,237,0.6)]" />
                 </div>
               )}
             </div>

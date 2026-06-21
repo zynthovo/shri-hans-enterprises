@@ -172,7 +172,9 @@ export function ServicesCircularGallery({
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReduced) return;
+    // Skip the per-frame auto-rotation on phones / reduced-motion — it
+    // re-renders every card each frame and is janky on mobile.
+    if (prefersReduced || window.matchMedia("(max-width: 768px)").matches) return;
 
     let animationFrameId: number;
     const animate = () => {
