@@ -1,0 +1,45 @@
+name: Deploy
+
+# On every push to main: build (gate), then deploy to the Hostinger VPS over SSH.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH (pull, build & restart on the server)
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script: |
+            set -euo pipefail
+            # APP_DIR = path to the cloned repo on the server (the app root).
+            cd "${{ secrets.APP_DIR }}"
+            git pull --ff-only
+            npm ci
+            npm run build
+            # Reload if already running, otherwise start it (port 3000 behind nginx).
+            pm2 reload zynthovo --update-env || pm2 start npm --name zynthovo -- start
+            pm2 save
