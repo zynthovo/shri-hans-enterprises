@@ -52,7 +52,10 @@ jobs:
             set -euo pipefail
             # APP_DIR = path to the cloned repo on the server (the app root).
             cd "${{ secrets.APP_DIR }}"
-            git pull --ff-only
+            # Hard-reset to the remote: `npm install` mutates package-lock.json on
+            # the server, so `git pull --ff-only` would refuse to overwrite it.
+            git fetch origin
+            git reset --hard origin/main
             npm install
             npm run build
             # Start or reload on the dedicated port from ecosystem.config.js (3005).
