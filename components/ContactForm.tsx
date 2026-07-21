@@ -35,7 +35,7 @@ export function ContactForm({
   fields,
   button,
   successMessage,
-  subject = "New enquiry from the Zynthovo website",
+  subject = "New enquiry from the Shri Hans website",
 }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -65,7 +65,7 @@ export function ContactForm({
       try {
         formData.append("access_key", ACCESS_KEY);
         formData.append("subject", subject);
-        formData.append("from_name", "Zynthovo Website");
+        formData.append("from_name", "Shri Hans Website");
         await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: { Accept: "application/json" },
@@ -135,14 +135,14 @@ export function ContactForm({
         )}
         {status === "error" && (
           <p className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-red-700">
-            Something went wrong. Please try again, or email us at
-            contact@zynthovo.com.
+            Something went wrong. Please try again, or reach us on the phone
+            or WhatsApp number in the footer.
           </p>
         )}
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded-lg bg-brand px-10 py-3 font-semibold text-white shadow-[0_4px_15px_rgba(0,93,237,0.4)] transition hover:bg-brand-dark disabled:opacity-60"
+          className="rounded-lg bg-brand px-10 py-3 font-semibold text-black shadow-[0_4px_15px_rgba(212,175,55,0.4)] transition hover:bg-brand-dark disabled:opacity-60"
         >
           {status === "loading" ? "Sending…" : button}
         </button>

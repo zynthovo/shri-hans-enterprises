@@ -3,16 +3,24 @@
 /* Enable class-based dark mode (toggled via the `.dark` class on <html>). */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Letter-spacing ("tracking") on uppercase eyebrow labels is a Latin small-caps
+   convention — applied to Devanagari it visually pries conjuncts and matras
+   apart from their base consonant. Neutralize it wherever <html lang="hi">. */
+:lang(hi) [class*="tracking-"],
+:lang(hi) .section-title span {
+  letter-spacing: normal;
+}
+
 @theme {
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-heading: var(--font-roboto), system-ui, sans-serif;
 
-  --color-brand: #005ded;
-  --color-brand-dark: #014be4;
-  --color-accent: #5e72e4;
-  --color-navy: #001946;
-  --color-ink: #0a0f1e;
-  --color-card: #151b2e;
+  --color-brand: #d4af37;
+  --color-brand-dark: #a8841f;
+  --color-accent: #b8bcc4;
+  --color-navy: #14110a;
+  --color-ink: #0a0908;
+  --color-card: #17140f;
 }
 
 /* Theme-aware semantic tokens (used by both light & dark modes). */
@@ -26,30 +34,30 @@
   --color-line: var(--line);
 }
 
-/* Light mode (default) */
+/* Light mode — "brushed steel" (available via the theme toggle) */
 :root {
-  --brand: #005ded;
-  --brand-dark: #014be4;
-  --navy: #001946;
+  --brand: #c9a227;
+  --brand-dark: #a8841f;
+  --navy: #14110a;
 
-  --background: #ffffff;
-  --foreground: #444444;
+  --background: #f4f3f0;
+  --foreground: #3a362f;
   --surface: #ffffff;
-  --surface-alt: #f8f9fa;
-  --heading: #001946;
-  --muted: #6c757d;
-  --line: rgba(0, 0, 0, 0.1);
+  --surface-alt: #ebe9e4;
+  --heading: #17140f;
+  --muted: #6b665c;
+  --line: rgba(20, 17, 10, 0.1);
   color-scheme: light;
 }
 
-/* Dark mode */
+/* Dark mode — black / charcoal / gold (default) */
 .dark {
-  --background: #0a0f1e;
-  --foreground: #cbd5e1;
-  --surface: #151b2e;
-  --surface-alt: #0f1525;
+  --background: #0a0908;
+  --foreground: #cbc7bd;
+  --surface: #17140f;
+  --surface-alt: #100e0a;
   --heading: #ffffff;
-  --muted: #94a3b8;
+  --muted: #9a948a;
   --line: rgba(255, 255, 255, 0.12);
   color-scheme: dark;
 }
@@ -135,7 +143,7 @@
   letter-spacing: 1px;
   font-weight: 600;
   font-size: 14px;
-  color: #5e72e4;
+  color: var(--brand);
 }
 .section-title h2 {
   font-size: 36px;
@@ -147,88 +155,6 @@
   margin: 0 auto;
   max-width: 700px;
   color: var(--muted);
-}
-
-/* ---------- Pricing ---------- */
-.pricing-item {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 40px 32px;
-  height: 100%;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0, 25, 70, 0.05);
-  transition: 0.3s;
-  text-align: center;
-}
-.pricing-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 45px rgba(0, 93, 237, 0.12);
-}
-.pricing-item h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--heading);
-}
-.pricing-item h4 {
-  font-size: 54px;
-  font-weight: 700;
-  color: var(--brand);
-  margin: 16px 0;
-}
-.pricing-item h4 sup {
-  font-size: 26px;
-  top: -16px;
-}
-.pricing-item h4 span {
-  font-size: 16px;
-  font-weight: 400;
-  color: #9aa3b2;
-}
-.pricing-item ul {
-  list-style: none;
-  padding: 0;
-  margin: 24px 0;
-  text-align: left;
-}
-.pricing-item ul li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  color: var(--foreground);
-}
-.pricing-item ul li i {
-  color: var(--brand);
-  font-size: 18px;
-}
-.pricing-item ul .na {
-  color: #c3c8d2;
-  text-decoration: line-through;
-}
-.pricing-item ul .na i {
-  color: #c3c8d2;
-}
-.pricing-item .buy-btn {
-  display: inline-block;
-  padding: 12px 36px;
-  border-radius: 50px;
-  border: 1px solid var(--brand);
-  color: var(--brand);
-  font-weight: 600;
-  transition: 0.3s;
-}
-.pricing-item .buy-btn:hover {
-  background: var(--brand);
-  color: #fff;
-}
-.pricing-item.featured {
-  border-color: var(--brand);
-  box-shadow: 0 20px 50px rgba(0, 93, 237, 0.18);
-}
-.pricing-item.featured .buy-btn {
-  background: var(--brand);
-  color: #fff;
 }
 
 /* ---------- FAQ ---------- */
@@ -283,7 +209,7 @@
   color: var(--brand);
 }
 .faq-item.faq-active {
-  border-color: rgba(0, 93, 237, 0.25);
+  border-color: rgba(201, 162, 39, 0.25);
 }
 
 /* ---------- Testimonials (Swiper) ---------- */
@@ -338,56 +264,6 @@
   }
 }
 
-/* ---------- Creators Flow geometric hero ---------- */
-@keyframes cfShapeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-150px) rotate(var(--rot-start, 0deg));
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(var(--rot, 0deg));
-  }
-}
-@keyframes cfShapeFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(15px);
-  }
-}
-@keyframes cfFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.cf-shape {
-  opacity: 0;
-  animation: cfShapeIn 2.4s cubic-bezier(0.23, 0.86, 0.39, 0.96) forwards;
-}
-.cf-shape-float {
-  animation: cfShapeFloat 12s ease-in-out infinite;
-}
-.cf-fade {
-  opacity: 0;
-  animation: cfFadeUp 1s cubic-bezier(0.25, 0.4, 0.25, 1) forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cf-shape,
-  .cf-shape-float,
-  .cf-fade {
-    animation: none;
-    opacity: 1;
-  }
-}
-
 /* ---------- 3D marquee ---------- */
 @keyframes mq3dColDown {
   from {
@@ -414,34 +290,6 @@
 @media (prefers-reduced-motion: reduce) {
   .mq3d-col-a,
   .mq3d-col-b {
-    animation: none;
-  }
-}
-
-/* ---------- Tech marquee ---------- */
-@keyframes techMarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.tech-marquee {
-  animation: techMarquee 45s linear infinite;
-  width: max-content;
-}
-.tech-marquee-rev {
-  animation: techMarquee 45s linear infinite reverse;
-  width: max-content;
-}
-.tech-row:hover .tech-marquee,
-.tech-row:hover .tech-marquee-rev {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .tech-marquee,
-  .tech-marquee-rev {
     animation: none;
   }
 }

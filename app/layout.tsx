@@ -6,6 +6,8 @@ import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { getSettings } from "@/lib/settings";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/getDictionary";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,22 +24,21 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://zynthovo.com"),
+  metadataBase: new URL("https://shrihansenterprises.com"),
   title: {
     default:
-      "Zynthovo Digital Private Limited - IT, Marketing, AI & Tax Services in Lucknow",
-    template: "%s | Zynthovo Digital",
+      "Shri Hans Enterprises - Precision Steel Fabrication & Laser Cutting",
+    template: "%s | Shri Hans Enterprises",
   },
   description:
-    "Zynthovo Digital Private Limited, Lucknow — website & software development, CRM/ERP, mobile apps, AI automation, IoT, digital & influencer marketing (Creators Flow), graphic design, video editing, company formation, GST returns & income tax filing.",
+    "Shri Hans Enterprises — MS & SS fabrication, CNC laser cutting, powder coating, welding, railings, gates, and steel structures for residential, commercial, and industrial projects.",
   keywords:
-    "Zynthovo Digital, IT solutions Lucknow, web development, software development, CRM, ERP, mobile app development, AI automation, IoT solutions, digital marketing, influencer marketing, Creators Flow, graphic design, video editing, AI school management software, company formation, GST returns, income tax filing, CA services Lucknow",
-  authors: [{ name: "Zynthovo Digital Private Limited" }],
+    "steel fabrication, laser cutting, CNC laser cutting, MS fabrication, SS fabrication, powder coating, welding, MS railings, SS railings, stair railings, balcony railings, main gates, industrial gates, steel structures, custom metal design",
+  authors: [{ name: "Shri Hans Enterprises" }],
   openGraph: {
-    title:
-      "Zynthovo Digital Private Limited - Technology, Marketing & Compliance",
+    title: "Shri Hans Enterprises - Precision in Every Cut",
     description:
-      "One partner for software, marketing, and financial compliance. Based in Lucknow, India.",
+      "Precision steel fabrication and laser cutting — railings, gates, structures, and custom metal work built to last.",
     type: "website",
   },
 };
@@ -46,9 +47,11 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const { contact } = await getSettings();
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
   return (
     <html
-      lang="en"
+      lang={locale}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${poppins.variable} ${roboto.variable}`}
@@ -56,9 +59,11 @@ export default async function RootLayout({
       <head>
         <script
           // Apply the saved theme before paint to avoid a flash of the wrong theme.
+          // Dark (industrial black/charcoal/gold) is the default look — only an
+          // explicit "light" choice in localStorage opts back into the light theme.
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();",
+              "(function(){try{var t=localStorage.getItem('theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();",
           }}
         />
         <link
@@ -71,10 +76,14 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-background text-foreground antialiased">
-        <Header />
+        <Header dict={dict} locale={locale} />
         <main>{children}</main>
         <Footer />
-        <WhatsAppButton phone={contact.whatsapp} />
+        <WhatsAppButton
+          phone={contact.whatsapp}
+          message={dict.whatsapp.floatingMessage}
+          label={dict.contactPage.whatsappCta}
+        />
         <ScrollToTop />
       </body>
     </html>

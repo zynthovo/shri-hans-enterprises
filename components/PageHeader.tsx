@@ -5,18 +5,19 @@ interface PageHeaderProps {
   title: string;
   crumb: string;
   description?: string;
+  homeLabel?: string;
 }
 
 const DEFAULT_DESC =
-  "Your complete partner for technology, marketing, and financial compliance — building, marketing, and managing businesses end to end.";
+  "Precision steel fabrication and laser cutting — railings, gates, structures, and custom metal work built to last.";
 
-export function PageHeader({ title, crumb, description }: PageHeaderProps) {
+export function PageHeader({ title, crumb, description, homeLabel = "Home" }: PageHeaderProps) {
   return (
     <section
-      className="relative bg-[#001226] pb-16 pt-36 text-center text-white"
+      className="relative bg-ink pb-16 pt-36 text-center text-white"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,9,26,0.85), rgba(0,9,26,0.92)), url(/assets/img/page-title-bg.jpg)",
+          "linear-gradient(rgba(10,9,8,0.85), rgba(10,9,8,0.92)), url(/assets/img/page-title-bg.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -31,7 +32,7 @@ export function PageHeader({ title, crumb, description }: PageHeaderProps) {
             <ol className="flex items-center justify-center gap-2 text-sm text-white/60">
               <li>
                 <Link href="/" className="hover:text-white">
-                  Home
+                  {homeLabel}
                 </Link>
               </li>
               <li>/</li>

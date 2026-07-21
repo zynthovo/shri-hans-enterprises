@@ -21,27 +21,23 @@ export interface SiteSettings {
   };
 }
 
-// Defaults match the previous hard-coded values, so nothing changes until edited.
+// Placeholder defaults — update the real business details from /admin/settings
+// (or edit here) before launch. Nothing here is a real, reachable contact.
 export const DEFAULT_SETTINGS: SiteSettings = {
   contact: {
     address:
-      "70-A, Lok Nagar K.B. Marg, Alok Nagar,\nKalyanpur, Lucknow-226022, Uttar Pradesh",
-    phone: "8948972625",
-    whatsapp: "918948972625",
-    emails: [
-      "info@zynthovo.com",
-      "contact@zynthovo.com",
-      "support@zynthovo.com",
-      "careers@zynthovo.com",
-    ],
+      "Plot No. 14, Industrial Area, Sector 25,\nFaridabad-121003, Haryana",
+    phone: "9876543210",
+    whatsapp: "919876543210",
+    emails: ["info@shrihansenterprises.com", "sales@shrihansenterprises.com"],
   },
   socials: {
-    facebook: "",
-    instagram: "https://instagram.com/zynthovo",
-    twitter: "https://x.com/zynthovo",
-    linkedin: "https://linkedin.com/company/zynthovo",
-    youtube: "",
-    github: "https://github.com/zynthovo",
+    facebook: "https://facebook.com/shrihansenterprises",
+    instagram: "https://instagram.com/shrihansenterprises",
+    twitter: "",
+    linkedin: "",
+    youtube: "https://youtube.com/@shrihansenterprises",
+    github: "",
   },
 };
 

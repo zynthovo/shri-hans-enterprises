@@ -1,28 +1,31 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
-import { CreatorsFlow } from "@/components/sections/CreatorsFlow";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { Gallery } from "@/components/sections/Gallery";
+import { Process } from "@/components/sections/Process";
 import { CallToAction } from "@/components/sections/CallToAction";
-import { Features } from "@/components/sections/Features";
-import { Technologies } from "@/components/sections/Technologies";
-import { Pricing } from "@/components/sections/Pricing";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Faq } from "@/components/sections/Faq";
+import { getSettings } from "@/lib/settings";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/getDictionary";
 
-export default function Home() {
+export default async function Home() {
+  const { contact } = await getSettings();
+  const dict = await getDictionary(await getLocale());
+
   return (
     <>
-      <Hero />
-      {/* <FeaturedServices /> */}
+      <Hero phone={contact.phone} dict={dict.hero} />
       <About />
       <Services />
-      <CreatorsFlow />
+      <WhyChooseUs />
+      <Gallery dict={dict.gallery} />
+      <Process />
       <CallToAction />
-      <Features />
-      <Technologies />
-      <Pricing />
-      <Testimonials />
-      <Faq />
+      <Testimonials dict={dict.testimonials} />
+      <Faq dict={dict.faq} />
     </>
   );
 }

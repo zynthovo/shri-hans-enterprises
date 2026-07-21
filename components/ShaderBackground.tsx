@@ -55,10 +55,10 @@ void main(void) {
     uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
-    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.)*vec3(.45,.85,1.7);
+    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.)*vec3(1.7,1.1,.4);
     float b=noise(i+p+bg*1.731);
     col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
-    col=mix(col,vec3(bg*.04,bg*.13,bg*.42),d);
+    col=mix(col,vec3(bg*.42,bg*.28,bg*.08),d);
   }
   O=vec4(col,1);
 }`;
@@ -171,7 +171,7 @@ export function ShaderBackground({ className = "" }: { className?: string }) {
         className={className}
         style={{
           background:
-            "radial-gradient(circle at 30% 20%, rgba(94,114,228,0.45), transparent 55%), radial-gradient(circle at 75% 80%, rgba(123,47,247,0.4), transparent 55%), #05060f",
+            "radial-gradient(circle at 30% 20%, rgba(212,175,55,0.35), transparent 55%), radial-gradient(circle at 75% 80%, rgba(120,90,30,0.35), transparent 55%), #0a0908",
         }}
       />
     );

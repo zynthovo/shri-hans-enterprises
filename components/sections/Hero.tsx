@@ -5,17 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { GooeyText } from "@/components/GooeyText";
-
-const morphTexts = [
-  "Websites",
-  "Software & ERP",
-  "Mobile Apps",
-  "AI Automation",
-  "Digital Marketing",
-  "Creators Flow",
-  "Graphic & Video",
-  "GST & Tax",
-];
+import type { Dictionary } from "@/lib/i18n/getDictionary";
 
 const randomColors = (count: number) =>
   new Array(count)
@@ -36,9 +26,13 @@ const runtimeImport = (url: string): Promise<{ default: unknown }> =>
 const TUBES_CDN =
   "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js";
 
-const stats = ["100+ Projects Delivered", "Expert Team", "24/7 Support"];
-
-export function Hero() {
+export function Hero({
+  phone = "9876543210",
+  dict,
+}: {
+  phone?: string;
+  dict: Dictionary["hero"];
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   // threejs-components has no types; keep the app instance loosely typed.
@@ -60,8 +54,9 @@ export function Hero() {
     { scope: sectionRef }
   );
 
-  // Tubes Cursor (Three.js) background — only alive while the hero is on screen,
-  // so it never competes with the robot scene further down the page.
+  // Tubes Cursor (Three.js) background, recolored to gold/ember "spark" tones —
+  // only alive while the hero is on screen, so it never competes with sections
+  // further down the page.
   useEffect(() => {
     const section = sectionRef.current;
     const canvas = canvasRef.current;
@@ -98,10 +93,10 @@ export function Hero() {
         ) => any;
         const app = TubesCursor(canvas, {
           tubes: {
-            colors: ["#5e72e4", "#8965e0", "#f5365c"],
+            colors: ["#d4af37", "#8a8a8a", "#ff6a00"],
             lights: {
               intensity: 200,
-              colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"],
+              colors: ["#ffd700", "#c0c0c0", "#ff8c00", "#ffffff"],
             },
           },
         });
@@ -162,22 +157,21 @@ export function Hero() {
             data-hero-anim
             className="mb-5 text-4xl font-bold leading-tight text-white drop-shadow-[0_0_40px_rgba(0,0,0,1)] sm:text-5xl lg:text-[3.5rem]"
           >
-            Transform Your Business with Digital Innovation
+            {dict.headline}
           </h1>
           <p
             data-hero-anim
             className="mb-6 text-lg text-white drop-shadow-[0_0_30px_rgba(0,0,0,1)] sm:text-xl"
           >
-            Complete IT Solutions • Digital Marketing • AI Automation • Tax &
-            Compliance Services
+            {dict.subheading}
           </p>
 
           <div data-hero-anim className="mb-8">
-            <p className="mb-1 text-sm font-semibold uppercase tracking-[0.2em] text-[#7aa2ff]">
-              One company, every service
+            <p className="mb-1 text-sm font-semibold uppercase tracking-[0.2em] text-[#e0b84c]">
+              {dict.eyebrow}
             </p>
             <GooeyText
-              texts={morphTexts}
+              texts={dict.morphWords}
               morphTime={1}
               cooldownTime={1.2}
               align="left"
@@ -190,23 +184,23 @@ export function Hero() {
             <Link
               href="/get-a-quote"
               onClick={(e) => e.stopPropagation()}
-              className="rounded-lg bg-brand px-8 py-3.5 font-semibold text-white shadow-[0_4px_15px_rgba(0,93,237,0.4)] transition hover:bg-brand-dark"
+              className="rounded-lg bg-brand px-8 py-3.5 font-semibold text-black shadow-[0_4px_15px_rgba(212,175,55,0.4)] transition hover:bg-brand-dark"
             >
-              Get Started
+              {dict.ctaQuote}
             </Link>
             <a
-              href="#services"
+              href={`tel:+91${phone}`}
               onClick={(e) => e.stopPropagation()}
               className="rounded-lg border-2 border-white px-8 py-3.5 font-semibold text-white transition hover:bg-white hover:text-black"
             >
-              Our Services
+              {dict.ctaCall}
             </a>
           </div>
 
           <div data-hero-anim className="grid max-w-2xl gap-3 sm:grid-cols-3">
-            {stats.map((s) => (
+            {dict.stats.map((s) => (
               <div key={s} className="flex items-center gap-2.5">
-                <i className="bi bi-check-circle-fill text-2xl text-[#00d4ff] drop-shadow-[0_0_10px_rgba(0,212,255,0.8)]" />
+                <i className="bi bi-check-circle-fill text-2xl text-[#d4af37] drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
                 <span className="font-medium text-white drop-shadow-[0_0_20px_rgba(0,0,0,1)]">
                   {s}
                 </span>

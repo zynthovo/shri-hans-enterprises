@@ -3,51 +3,20 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { ShaderBackground } from "@/components/ShaderBackground";
+import type { Dictionary } from "@/lib/i18n/getDictionary";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const testimonials = [
-  {
-    name: "Rohit Verma",
-    role: "Founder, Retail Startup",
-    img: "https://images.unsplash.com/photo-1638368349569-e49499196d9f?w=200&h=200&fit=crop&crop=faces&q=70&auto=format",
-    text: "Zynthovo built our website and handled our GST and company registration together. Getting tech and compliance from one team saved us so much time and back-and-forth.",
-  },
-  {
-    name: "Priya Sharma",
-    role: "Marketing Head, D2C Brand",
-    img: "https://images.unsplash.com/photo-1557296387-5358ad7997bb?w=200&h=200&fit=crop&crop=faces&q=70&auto=format",
-    text: "We ran our first influencer campaign through Creators Flow and the reach was incredible. The team handled creator matching, content and reporting end to end.",
-  },
-  {
-    name: "Aman Gupta",
-    role: "Director, EdTech",
-    img: "https://images.unsplash.com/photo-1522724709546-19901cb1818a?w=200&h=200&fit=crop&crop=faces&q=70&auto=format",
-    text: "Their AI-powered School Management Software transformed how we manage admissions, fees and attendance. Genuinely well-built and easy for our staff to use.",
-  },
-  {
-    name: "Neha Singh",
-    role: "Proprietor, Local Business",
-    img: "https://images.unsplash.com/photo-1536766768598-e09213fdcf22?w=200&h=200&fit=crop&crop=faces&q=70&auto=format",
-    text: "From logo and video editing to social media marketing, Zynthovo gave our brand a complete makeover. Professional, responsive and affordable.",
-  },
-  {
-    name: "Vikas Yadav",
-    role: "CEO, Manufacturing",
-    img: "https://images.unsplash.com/photo-1580471260026-2a8acbc7c7a7?w=200&h=200&fit=crop&crop=faces&q=70&auto=format",
-    text: "They delivered a custom ERP that streamlined our entire operation, and they also manage our income tax and accounting. A true one-stop partner.",
-  },
-];
-
-export function Testimonials() {
+export function Testimonials({ dict }: { dict: Dictionary["testimonials"] }) {
+  const testimonials = dict.list;
   return (
     <section
       id="testimonials"
       className="testimonials relative overflow-hidden py-20"
     >
       <ShaderBackground className="absolute inset-0 h-full w-full" />
-      {/* Keep this a dark "cosmic clouds" spotlight section in both themes so
-          the animated shader stays vivid. A light overlay would wash it out. */}
+      {/* Keep this a dark spotlight section in both themes so the animated
+          shader stays vivid. A light overlay would wash it out. */}
       <div className="absolute inset-0 bg-black/25" />
 
       <div className="site-container relative z-10">
@@ -63,12 +32,9 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <SwiperSlide key={t.name}>
               <div className="mx-auto max-w-3xl rounded-2xl border border-white/20 bg-white/10 p-8 text-center shadow-2xl backdrop-blur-2xl sm:p-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="mx-auto h-24 w-24 rounded-full border-4 border-white/30 object-cover"
-                />
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-white/30 bg-gradient-to-br from-brand to-brand-dark text-2xl font-bold text-black">
+                  {t.initials}
+                </div>
                 <h3 className="mt-4 text-xl font-semibold text-white">
                   {t.name}
                 </h3>

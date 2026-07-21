@@ -152,7 +152,7 @@ export function GooeyText({
           ref={text1Ref}
           style={{ opacity: "100%" }}
           className={cn(
-            "absolute inline-block select-none text-5xl md:text-7xl",
+            "absolute inline-block whitespace-nowrap select-none text-5xl md:text-7xl",
             align === "left" ? "left-0 text-left" : "text-center",
             textClassName
           )}
@@ -163,7 +163,7 @@ export function GooeyText({
           ref={text2Ref}
           style={{ opacity: "0%" }}
           className={cn(
-            "absolute inline-block select-none text-5xl md:text-7xl",
+            "absolute inline-block whitespace-nowrap select-none text-5xl md:text-7xl",
             align === "left" ? "left-0 text-left" : "text-center",
             textClassName
           )}

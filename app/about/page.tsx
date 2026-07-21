@@ -5,75 +5,44 @@ import { Stats } from "@/components/sections/Stats";
 import { Team } from "@/components/sections/Team";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Faq } from "@/components/sections/Faq";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/getDictionary";
 
 export const metadata: Metadata = {
-  title: "About - Zynthovo Digital Private Limited",
+  title: "About - Shri Hans Enterprises",
   description:
-    "Zynthovo Digital Private Limited is a Lucknow-based technology, marketing, and compliance company founded by Tarun Kumar Sahani and Sandeep Yadav.",
+    "Shri Hans Enterprises has delivered precision MS & SS fabrication, laser cutting, railings, gates, and steel structures since 2002.",
 };
 
-const points = [
-  {
-    icon: "bi-diagram-3",
-    title: "Everything under one roof",
-    desc: "Development, marketing, design, and CA services from a single, accountable team — no more juggling multiple vendors.",
-  },
-  {
-    icon: "bi-cpu",
-    title: "Products that work for you",
-    desc: "Creators Flow for influencer marketing and our AI-powered School Management Software, alongside custom CRM & ERP builds.",
-  },
-  {
-    icon: "bi-shield-check",
-    title: "Compliance you can trust",
-    desc: "GST, income tax, company formation and accounting handled correctly and on time, so you stay fully compliant.",
-  },
-];
+export default async function AboutPage() {
+  const dict = await getDictionary(await getLocale());
+  const { aboutPage } = dict;
 
-export default function AboutPage() {
   return (
     <>
-      <PageHeader title="About" crumb="About" />
+      <PageHeader
+        title={aboutPage.title}
+        crumb={aboutPage.title}
+        description={aboutPage.description}
+        homeLabel={dict.pageHeader.breadcrumbHome}
+      />
 
       <section id="about" className="py-20">
         <div className="site-container px-4 sm:px-0">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <Reveal animation="fade-left" className="order-first lg:order-last">
-              <div className="relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/img/about.jpg"
-                  alt="About Zynthovo Digital"
-                  className="w-full rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)]"
-                />
-                <a
-                  href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Play video"
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-2xl text-white shadow-lg transition hover:scale-110">
-                    <i className="bi bi-play-fill" />
-                  </span>
-                </a>
+              <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-card via-ink to-card text-brand shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+                <i className="fa-solid fa-bolt text-[7rem] drop-shadow-[0_0_40px_rgba(212,175,55,0.45)]" />
               </div>
             </Reveal>
 
             <Reveal animation="fade-right" className="order-last lg:order-first">
-              <h3 className="mb-4 text-3xl font-bold text-heading">About Us</h3>
-              <p className="mb-6 text-muted">
-                Zynthovo Digital Private Limited is a Lucknow-based company that
-                brings technology, marketing, and financial compliance together
-                under one roof. Founded by{" "}
-                <strong className="text-heading">Tarun Kumar Sahani</strong> and
-                co-founded by{" "}
-                <strong className="text-heading">Sandeep Yadav</strong>, we help
-                businesses build software, grow their brand, and stay fully
-                compliant — all with one trusted partner.
-              </p>
+              <h3 className="mb-4 text-3xl font-bold text-heading">
+                {aboutPage.heading}
+              </h3>
+              <p className="mb-6 text-muted">{aboutPage.body}</p>
               <ul className="space-y-5">
-                {points.map((p) => (
+                {aboutPage.points.map((p) => (
                   <li key={p.title} className="flex gap-4">
                     <i className={`bi ${p.icon} mt-1 text-2xl text-brand`} />
                     <div>
@@ -88,10 +57,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Stats />
+      <Stats dict={dict.stats} />
       <Team />
-      <Testimonials />
-      <Faq />
+      <Testimonials dict={dict.testimonials} />
+      <Faq dict={dict.faq} />
     </>
   );
 }

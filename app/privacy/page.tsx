@@ -3,12 +3,12 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Zynthovo Digital",
+  title: "Privacy Policy - Shri Hans Enterprises",
   description:
-    "How Zynthovo Digital Private Limited collects, uses, and protects your personal information.",
+    "How Shri Hans Enterprises collects, uses, and protects your personal information.",
 };
 
-const LAST_UPDATED = "21 June 2026";
+const LAST_UPDATED = "11 July 2026";
 
 type Section = {
   heading: string;
@@ -20,7 +20,7 @@ const sections: Section[] = [
   {
     heading: "1. Introduction",
     paragraphs: [
-      "Zynthovo Digital Private Limited (“Zynthovo”, “we”, “us” or “our”) is a company based in Lucknow, Uttar Pradesh, India, providing technology, digital marketing, and financial compliance services. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit zynthovo.com, contact us, or use our services and products, including Creators Flow.",
+      "Shri Hans Enterprises (“Shri Hans”, “we”, “us” or “our”) is a steel fabrication and laser cutting workshop based in Faridabad, Haryana, India. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, request a quote, or engage our fabrication services.",
       "By using our website or services, you agree to the collection and use of information in accordance with this policy.",
     ],
   },
@@ -28,8 +28,8 @@ const sections: Section[] = [
     heading: "2. Information We Collect",
     paragraphs: ["We may collect the following types of information:"],
     list: [
-      "Contact details you provide — such as your name, email address, phone number, company name, and message — when you request a quote, fill a form, or email us.",
-      "Project and business information you share with us to deliver our services (for example, content, brand assets, or documents required for GST, tax, and compliance work).",
+      "Contact details you provide — such as your name, email address, phone number, and message — when you request a quote, fill a form, or email us.",
+      "Project details you share with us to prepare a quote or deliver a fabrication job (for example, site measurements, designs, or reference photos).",
       "Technical data such as IP address, browser type, device information, and pages visited, collected automatically through cookies and analytics.",
       "Communications and records of correspondence between you and our team.",
     ],
@@ -38,10 +38,9 @@ const sections: Section[] = [
     heading: "3. How We Use Your Information",
     paragraphs: ["We use the information we collect to:"],
     list: [
-      "Provide, operate, and improve our services and products.",
+      "Provide, operate, and improve our fabrication and laser cutting services.",
       "Respond to your enquiries, prepare quotes, and deliver projects.",
-      "Process registrations, returns, and filings for compliance services you engage us for.",
-      "Send service updates, invoices, and — where permitted — relevant marketing communications.",
+      "Send service updates and invoices related to your project.",
       "Maintain the security and integrity of our website and systems.",
       "Comply with applicable legal and regulatory obligations.",
     ],
@@ -55,7 +54,7 @@ const sections: Section[] = [
   {
     heading: "5. Sharing & Disclosure",
     paragraphs: [
-      "We do not sell your personal information. We may share it only with trusted service providers who help us operate (such as hosting, payment, or analytics providers), with government or regulatory authorities where required for compliance services or by law, or with your consent.",
+      "We do not sell your personal information. We may share it only with trusted service providers who help us operate (such as hosting or analytics providers), with government or regulatory authorities where required by law, or with your consent.",
     ],
   },
   {
@@ -79,7 +78,7 @@ const sections: Section[] = [
   {
     heading: "9. Third-Party Links",
     paragraphs: [
-      "Our website and products may contain links to third-party websites or services. We are not responsible for the privacy practices of those third parties and encourage you to review their policies.",
+      "Our website may contain links to third-party websites or services, such as Google Maps or WhatsApp. We are not responsible for the privacy practices of those third parties and encourage you to review their policies.",
     ],
   },
   {
@@ -91,7 +90,7 @@ const sections: Section[] = [
   {
     heading: "11. Contact Us",
     paragraphs: [
-      "If you have any questions about this Privacy Policy or how we handle your data, please contact us at info@zynthovo.com or call 8948972625. Our registered office is 70-A, Lok Nagar K.B. Marg, Alok Nagar, Kalyanpur, Lucknow-226022, Uttar Pradesh, India.",
+      "If you have any questions about this Privacy Policy or how we handle your data, please contact us via the phone number or email listed on our Contact page.",
     ],
   },
 ];

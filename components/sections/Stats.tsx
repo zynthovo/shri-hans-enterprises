@@ -4,15 +4,10 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useInView } from "@/components/useInView";
+import type { Dictionary } from "@/lib/i18n/getDictionary";
 
-const stats = [
-  { end: 232, label: "Clients" },
-  { end: 521, label: "Projects" },
-  { end: 1453, label: "Hours Of Support" },
-  { end: 32, label: "Workers" },
-];
-
-export function Stats() {
+export function Stats({ dict }: { dict: Dictionary["stats"] }) {
+  const stats = dict.items;
   const { ref, inView } = useInView<HTMLDivElement>({ once: true });
   const scope = useRef<HTMLDivElement>(null);
 
