@@ -3,13 +3,13 @@
 module.exports = {
   apps: [
     {
-      name: "zynthovo",
+      name: "shri-hans-enterprises",
       script: "npm",
       args: "start",
       cwd: __dirname,
       env: {
         NODE_ENV: "production",
-        PORT: 3005,
+        PORT: 3006,
       },
     },
   ],
