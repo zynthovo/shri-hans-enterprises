@@ -18,7 +18,11 @@ export async function POST(request: Request) {
   const store = await cookies();
   store.set(LOCALE_COOKIE, locale, {
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    // No `secure` flag: this is a non-sensitive display preference, and this
+    // site may be reached over plain HTTP (e.g. an IP:port deployment with
+    // no TLS in front of it yet) — a Secure cookie would be silently
+    // dropped by the browser there, and NODE_ENV alone can't tell us
+    // whether the connection is actually HTTPS.
     path: "/",
     maxAge: 60 * 60 * 24 * 365, // 1 year
   });

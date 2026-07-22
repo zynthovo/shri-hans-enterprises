@@ -153,7 +153,7 @@ export function Hero({
         className="absolute inset-0 z-[1] h-full w-full"
       />
 
-      <div className="site-container relative z-10 flex min-h-screen items-center px-4 sm:px-0">
+      <div className="site-container relative z-10 flex min-h-screen items-start pt-36 sm:items-center sm:pt-0 px-4 sm:px-0">
         <div className="max-w-3xl">
           <h1
             data-hero-anim
