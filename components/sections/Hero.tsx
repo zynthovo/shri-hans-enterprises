@@ -72,15 +72,6 @@ export function Hero({
 
     let cancelled = false;
 
-    const destroy = () => {
-      try {
-        appRef.current?.dispose?.();
-      } catch {
-        /* noop */
-      }
-      appRef.current = null;
-    };
-
     const create = async () => {
       if (appRef.current || cancelled) return;
       try {
@@ -112,10 +103,16 @@ export function Hero({
       }
     };
 
+    // Create once, the first time the hero scrolls into view. This WebGL
+    // library doesn't tear down and rebuild its GL context cleanly, so
+    // destroying/recreating it on every scroll in-and-out (the previous
+    // approach) left the canvas blank after scrolling away and back.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) create();
-        else destroy();
+        if (entry.isIntersecting) {
+          create();
+          observer.disconnect();
+        }
       },
       { threshold: 0 }
     );
@@ -124,7 +121,12 @@ export function Hero({
     return () => {
       cancelled = true;
       observer.disconnect();
-      destroy();
+      try {
+        appRef.current?.dispose?.();
+      } catch {
+        /* noop */
+      }
+      appRef.current = null;
     };
   }, []);
 
